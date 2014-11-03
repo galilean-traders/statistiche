@@ -1,0 +1,731 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 8.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[     28253,        722]
+NotebookOptionsPosition[     27257,        687]
+NotebookOutlinePosition[     27610,        703]
+CellTagsIndexPosition[     27567,        700]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"s", "=", 
+   RowBox[{
+    RowBox[{"NotebookInformation", "[", 
+     RowBox[{"EvaluationNotebook", "[", "]"}], "]"}], "[", 
+    RowBox[{"[", 
+     RowBox[{"1", ",", "2", ",", "1"}], "]"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"s", "//", "ToFileName"}], "//", "SetDirectory"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Needs", "[", "\"\<Utilities`URLTools`\>\"", "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Watchlist", "=", 
+   RowBox[{"Import", "[", 
+    RowBox[{"\"\<currencies.txt\>\"", ",", "\"\<Lines\>\""}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Pack5min", "[", "L_", "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+     "open", ",", " ", "high", ",", " ", "low", ",", " ", "close", ",", "j"}],
+      "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{"(*", 
+     RowBox[{
+     "Converts", " ", "a", " ", "list", " ", "of", " ", "5", " ", "1", "min", 
+      " ", "data", " ", "into", " ", "a", " ", "single", " ", "5", " ", "min",
+       " ", "data"}], "*)"}], "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"open", "=", 
+      RowBox[{"L", "[", 
+       RowBox[{"[", 
+        RowBox[{"1", ",", "4"}], "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"high", "=", 
+      RowBox[{"Max", "[", 
+       RowBox[{"Table", "[", 
+        RowBox[{
+         RowBox[{"L", "[", 
+          RowBox[{"[", 
+           RowBox[{"j", ",", "5"}], "]"}], "]"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"j", ",", "1", ",", "5"}], "}"}]}], "]"}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"low", "=", 
+      RowBox[{"Min", "[", 
+       RowBox[{"Table", "[", 
+        RowBox[{
+         RowBox[{"L", "[", 
+          RowBox[{"[", 
+           RowBox[{"j", ",", "6"}], "]"}], "]"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"j", ",", "1", ",", "5"}], "}"}]}], "]"}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"close", "=", 
+      RowBox[{"L", "[", 
+       RowBox[{"[", 
+        RowBox[{"5", ",", "7"}], "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"L", "[", 
+        RowBox[{"[", 
+         RowBox[{"1", ",", "1"}], "]"}], "]"}], ",", 
+       RowBox[{"L", "[", 
+        RowBox[{"[", 
+         RowBox[{"1", ",", "2"}], "]"}], "]"}], ",", 
+       RowBox[{"L", "[", 
+        RowBox[{"[", 
+         RowBox[{"5", ",", "3"}], "]"}], "]"}], ",", "open", ",", " ", "high",
+        " ", ",", "low", ",", " ", "close"}], "}"}]}]}], 
+   "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"PackDaily", "[", "L_", "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+     "open", ",", " ", "high", ",", " ", "low", ",", " ", "close", ",", "j"}],
+      "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{"(*", 
+     RowBox[{
+     "Converts", " ", "a", " ", "list", " ", "of", " ", "1", "min", " ", 
+      "data", " ", "into", " ", "a", " ", "single", " ", "daily", " ", "data",
+       " ", "pack"}], "*)"}], "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"open", "=", 
+      RowBox[{"L", "[", 
+       RowBox[{"[", 
+        RowBox[{"1", ",", "4"}], "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"high", "=", 
+      RowBox[{"Max", "[", 
+       RowBox[{"Table", "[", 
+        RowBox[{
+         RowBox[{"L", "[", 
+          RowBox[{"[", 
+           RowBox[{"j", ",", "5"}], "]"}], "]"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"j", ",", "1", ",", 
+           RowBox[{"Length", "[", "L", "]"}]}], "}"}]}], "]"}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"low", "=", 
+      RowBox[{"Min", "[", 
+       RowBox[{"Table", "[", 
+        RowBox[{
+         RowBox[{"L", "[", 
+          RowBox[{"[", 
+           RowBox[{"j", ",", "6"}], "]"}], "]"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"j", ",", "1", ",", 
+           RowBox[{"Length", "[", "L", "]"}]}], "}"}]}], "]"}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"close", "=", 
+      RowBox[{"L", "[", 
+       RowBox[{"[", 
+        RowBox[{
+         RowBox[{"Length", "[", "L", "]"}], ",", "7"}], "]"}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"L", "[", 
+        RowBox[{"[", 
+         RowBox[{"1", ",", "1"}], "]"}], "]"}], ",", 
+       RowBox[{"L", "[", 
+        RowBox[{"[", 
+         RowBox[{"1", ",", "2"}], "]"}], "]"}], ",", 
+       RowBox[{"L", "[", 
+        RowBox[{"[", 
+         RowBox[{
+          RowBox[{"Length", "[", "L", "]"}], ",", "3"}], "]"}], "]"}], ",", 
+       "open", ",", " ", "high", ",", " ", "low", ",", " ", "close"}], 
+      "}"}]}]}], "\[IndentingNewLine]", "]"}]}]}], "Input",
+ CellChangeTimes->{
+  3.5990539026286783`*^9, 3.599055253897861*^9, {3.599055289225441*^9, 
+   3.599055300763772*^9}, {3.599055377852215*^9, 3.599055449766054*^9}, {
+   3.5990555182392*^9, 3.599055518715713*^9}, 3.599057068609314*^9, {
+   3.599057891408876*^9, 3.5990580249757442`*^9}, {3.599058100166786*^9, 
+   3.599058116661755*^9}, {3.599058237017949*^9, 3.599058320523978*^9}, {
+   3.5991172790492764`*^9, 3.59911729744877*^9}, {3.599117679616076*^9, 
+   3.599117745620523*^9}, {3.599117820171603*^9, 3.5991178243301897`*^9}, {
+   3.600243963248095*^9, 3.600244035444399*^9}, 3.600244168726705*^9, {
+   3.600328980649164*^9, 3.600328980993925*^9}}],
+
+Cell[BoxData[
+ RowBox[{"prova", "=", 
+  RowBox[{"Import", "[", "\"\<061111.csv\>\"", "]"}]}]], "Input",
+ CellChangeTimes->{{3.5990567655389977`*^9, 3.5990568489778633`*^9}, {
+   3.599056886335647*^9, 3.599056929768214*^9}, {3.599056967687779*^9, 
+   3.5990569780050373`*^9}, 3.599057899433453*^9}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Data", "=", 
+   RowBox[{"{", 
+    RowBox[{"2011", ",", "2", ",", "5"}], "}"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"DatePlus", "[", 
+  RowBox[{"Data", ",", "1"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"DateString", "[", 
+  RowBox[{"Data", ",", 
+   RowBox[{"{", 
+    RowBox[{"\"\<Day\>\"", ",", "\"\<Month\>\"", ",", "\"\<YearShort\>\""}], 
+    "}"}]}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"DateString", "[", 
+  RowBox[{"Data", ",", 
+   RowBox[{"{", "\"\<Month\>\"", "}"}]}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"DateString", "[", 
+   RowBox[{"Data", ",", "\"\<DayName\>\""}], "]"}], "!=", 
+  "\"\<Saturday\>\""}]}], "Input",
+ CellChangeTimes->{{3.5990575458431377`*^9, 3.599057547401539*^9}, {
+  3.599057653746648*^9, 3.5990576761104937`*^9}, {3.59905779927573*^9, 
+  3.5990578484537487`*^9}, {3.5991172382322273`*^9, 3.5991172498381853`*^9}, {
+  3.599117343773942*^9, 3.5991173673751297`*^9}, {3.599117428528961*^9, 
+  3.599117440031249*^9}, {3.599117492222476*^9, 3.599117528688266*^9}, {
+  3.599117941453973*^9, 3.599117956844981*^9}, {3.599118481572239*^9, 
+  3.599118544703816*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"2011", ",", "2", ",", "6"}], "}"}]], "Output",
+ CellChangeTimes->{{3.599057813395409*^9, 3.599057819694662*^9}, {
+   3.599117229116939*^9, 3.599117250443452*^9}, {3.599117344541163*^9, 
+   3.599117367807692*^9}, 3.599117437228442*^9, {3.599117507973632*^9, 
+   3.599117529433661*^9}, {3.599117946734614*^9, 3.599117957354673*^9}, {
+   3.5991185026923428`*^9, 3.599118545865312*^9}}],
+
+Cell[BoxData["\<\"050211\"\>"], "Output",
+ CellChangeTimes->{{3.599057813395409*^9, 3.599057819694662*^9}, {
+   3.599117229116939*^9, 3.599117250443452*^9}, {3.599117344541163*^9, 
+   3.599117367807692*^9}, 3.599117437228442*^9, {3.599117507973632*^9, 
+   3.599117529433661*^9}, {3.599117946734614*^9, 3.599117957354673*^9}, {
+   3.5991185026923428`*^9, 3.599118545866837*^9}}],
+
+Cell[BoxData["\<\"02\"\>"], "Output",
+ CellChangeTimes->{{3.599057813395409*^9, 3.599057819694662*^9}, {
+   3.599117229116939*^9, 3.599117250443452*^9}, {3.599117344541163*^9, 
+   3.599117367807692*^9}, 3.599117437228442*^9, {3.599117507973632*^9, 
+   3.599117529433661*^9}, {3.599117946734614*^9, 3.599117957354673*^9}, {
+   3.5991185026923428`*^9, 3.59911854586801*^9}}],
+
+Cell[BoxData["False"], "Output",
+ CellChangeTimes->{{3.599057813395409*^9, 3.599057819694662*^9}, {
+   3.599117229116939*^9, 3.599117250443452*^9}, {3.599117344541163*^9, 
+   3.599117367807692*^9}, 3.599117437228442*^9, {3.599117507973632*^9, 
+   3.599117529433661*^9}, {3.599117946734614*^9, 3.599117957354673*^9}, {
+   3.5991185026923428`*^9, 3.599118545869158*^9}}]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"2011", ",", "2", ",", "2"}], "}"}]], "Input",
+ CellChangeTimes->{{3.599057796136364*^9, 3.5990577969460487`*^9}}],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.599117560575726*^9, 3.599117670053952*^9}, {
+   3.5991178372011433`*^9, 3.599117929328281*^9}, {3.599117977903783*^9, 
+   3.599118004083959*^9}, {3.599118477391344*^9, 3.5991184796066504`*^9}, {
+   3.5991185500028677`*^9, 3.5991185724876013`*^9}, 3.600240818120673*^9}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"name", "=", "\"\<241213.zip\>\""}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"path", "=", 
+   RowBox[{"FetchURL", "[", 
+    RowBox[{
+     RowBox[{
+     "\"\<http://www.forexite.com/free_forex_quotes/2013/12/\>\"", "<>", 
+      "name"}], ",", "name"}], "]"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.599121162788378*^9, 3.599121174523374*^9}, {
+  3.599121225888955*^9, 3.5991212261053467`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"Export", "[", 
+  RowBox[{"\"\<040111.txt\>\"", ",", 
+   RowBox[{"Import", "[", 
+    RowBox[{"\"\<040111.zip\>\"", ",", "\"\<*\>\""}], "]"}]}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"prova", "=", 
+   RowBox[{"Import", "[", 
+    RowBox[{"\"\<040111.txt\>\"", ",", "\"\<CSV\>\""}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Length", "[", 
+  RowBox[{"Select", "[", 
+   RowBox[{"prova", ",", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"#", "[", 
+       RowBox[{"[", "1", "]"}], "]"}], "\[Equal]", "\"\<EURUSD\>\""}], 
+     "&"}]}], "]"}], "]"}]}], "Input",
+ CellChangeTimes->{{3.599118648889748*^9, 3.599118703188075*^9}, {
+  3.599119050221612*^9, 3.599119187031328*^9}, {3.599119268477395*^9, 
+  3.599119337642098*^9}}],
+
+Cell[BoxData["\<\"040111.txt\"\>"], "Output",
+ CellChangeTimes->{{3.5991186723941727`*^9, 3.599118703512291*^9}, 
+   3.599119079910289*^9, {3.5991191133985357`*^9, 3.599119188259666*^9}, {
+   3.5991192999960327`*^9, 3.599119338366396*^9}}],
+
+Cell[BoxData["1440"], "Output",
+ CellChangeTimes->{{3.5991186723941727`*^9, 3.599118703512291*^9}, 
+   3.599119079910289*^9, {3.5991191133985357`*^9, 3.599119188259666*^9}, {
+   3.5991192999960327`*^9, 3.599119338804305*^9}}]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"DATA", " ", "PREPARATION", " ", "AND", " ", "HANDLING"}], "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", "Download", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"SetDirectory", "[", 
+     RowBox[{
+      RowBox[{"Directory", "[", "]"}], "<>", "\"\</data\>\""}], "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Data", "=", 
+     RowBox[{"{", 
+      RowBox[{"2011", ",", "1", ",", "1"}], "}"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"While", "[", 
+    RowBox[{
+     RowBox[{"Data", "\[NotEqual]", 
+      RowBox[{"{", 
+       RowBox[{"2011", ",", "1", ",", "15"}], "}"}]}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"name", "=", 
+       RowBox[{
+        RowBox[{"DateString", "[", 
+         RowBox[{"Data", ",", 
+          RowBox[{"{", 
+           RowBox[{
+           "\"\<Day\>\"", ",", "\"\<Month\>\"", ",", "\"\<YearShort\>\""}], 
+           "}"}]}], "]"}], "<>", "\"\<.zip\>\""}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"DateString", "[", 
+          RowBox[{"Data", ",", "\"\<DayName\>\""}], "]"}], "!=", 
+         "\"\<Saturday\>\""}], ",", "\[IndentingNewLine]", 
+        RowBox[{"path", "=", 
+         RowBox[{"FetchURL", "[", 
+          RowBox[{
+           RowBox[{"\"\<http://www.forexite.com/free_forex_quotes/\>\"", "<>", 
+            RowBox[{"DateString", "[", 
+             RowBox[{"Data", ",", 
+              RowBox[{"{", "\"\<Year\>\"", "}"}]}], "]"}], "<>", "\"\</\>\"", 
+            "<>", 
+            RowBox[{"DateString", "[", 
+             RowBox[{"Data", ",", 
+              RowBox[{"{", "\"\<Month\>\"", "}"}]}], "]"}], "<>", "\"\</\>\"",
+             "<>", "name"}], ",", "name"}], "]"}]}]}], "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Data", "=", 
+       RowBox[{"DatePlus", "[", 
+        RowBox[{"Data", ",", "1"}], "]"}]}], ";"}]}], "\[IndentingNewLine]", 
+    "]"}], "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{"Data", " ", "extraction"}], "*)"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Data", "=", 
+     RowBox[{"{", 
+      RowBox[{"2011", ",", "1", ",", "1"}], "}"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"While", "[", 
+    RowBox[{
+     RowBox[{"Data", "\[NotEqual]", 
+      RowBox[{"{", 
+       RowBox[{"2011", ",", "1", ",", "15"}], "}"}]}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"name", "=", 
+       RowBox[{"DateString", "[", 
+        RowBox[{"Data", ",", 
+         RowBox[{"{", 
+          RowBox[{
+          "\"\<Day\>\"", ",", "\"\<Month\>\"", ",", "\"\<YearShort\>\""}], 
+          "}"}]}], "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"DateString", "[", 
+          RowBox[{"Data", ",", "\"\<DayName\>\""}], "]"}], "!=", 
+         "\"\<Saturday\>\""}], ",", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"Export", "[", 
+          RowBox[{
+           RowBox[{"name", "<>", "\"\<.txt\>\""}], ",", 
+           RowBox[{"Import", "[", 
+            RowBox[{
+             RowBox[{"name", "<>", "\"\<.zip\>\""}], ",", "\"\<*\>\""}], 
+            "]"}]}], "]"}], ";"}]}], "\[IndentingNewLine]", "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Data", "=", 
+       RowBox[{"DatePlus", "[", 
+        RowBox[{"Data", ",", "1"}], "]"}]}], ";"}]}], "\[IndentingNewLine]", 
+    "]"}], "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{"Data", " ", "preparation"}], "*)"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Data", "=", 
+     RowBox[{"{", 
+      RowBox[{"2011", ",", "1", ",", "1"}], "}"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"While", "[", 
+    RowBox[{
+     RowBox[{"Data", "\[NotEqual]", 
+      RowBox[{"{", 
+       RowBox[{"2011", ",", "1", ",", "15"}], "}"}]}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"name", "=", 
+       RowBox[{"DateString", "[", 
+        RowBox[{"Data", ",", 
+         RowBox[{"{", 
+          RowBox[{
+          "\"\<Day\>\"", ",", "\"\<Month\>\"", ",", "\"\<YearShort\>\""}], 
+          "}"}]}], "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"DateString", "[", 
+          RowBox[{"Data", ",", "\"\<DayName\>\""}], "]"}], "!=", 
+         "\"\<Saturday\>\""}], ",", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"DailyOneMin", "=", 
+          RowBox[{"Import", "[", 
+           RowBox[{
+            RowBox[{"name", "<>", "\"\<.txt\>\""}], ",", "\"\<CSV\>\""}], 
+           "]"}]}], ";", "\[IndentingNewLine]", 
+         RowBox[{"For", "[", 
+          RowBox[{
+           RowBox[{"i", "=", "1"}], ",", 
+           RowBox[{"i", "\[LessEqual]", 
+            RowBox[{"Length", "[", "Watchlist", "]"}]}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{
+            RowBox[{"Temp1min", "=", 
+             RowBox[{"Select", "[", 
+              RowBox[{"DailyOneMin", ",", 
+               RowBox[{
+                RowBox[{
+                 RowBox[{"#", "[", 
+                  RowBox[{"[", "1", "]"}], "]"}], "\[Equal]", 
+                 RowBox[{"Watchlist", "[", 
+                  RowBox[{"[", "i", "]"}], "]"}]}], "&"}]}], "]"}]}], ";", 
+            "\[IndentingNewLine]", 
+            RowBox[{"Export", "[", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"Watchlist", "[", 
+                RowBox[{"[", "i", "]"}], "]"}], "<>", "\"\<1min\>\"", "<>", 
+               "name", "<>", "\"\<.txt\>\""}], ",", "Temp1min", ",", 
+              "\"\<CSV\>\""}], "]"}], ";", "\[IndentingNewLine]", 
+            RowBox[{"Temp5min", "=", 
+             RowBox[{"Map", "[", 
+              RowBox[{"Pack5min", ",", 
+               RowBox[{"Partition", "[", 
+                RowBox[{"Temp1min", ",", "5"}], "]"}]}], "]"}]}], ";", 
+            "\[IndentingNewLine]", 
+            RowBox[{"Export", "[", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"Watchlist", "[", 
+                RowBox[{"[", "i", "]"}], "]"}], "<>", "\"\<5min\>\"", "<>", 
+               "name", "<>", "\"\<.txt\>\""}], ",", "Temp5min", ",", 
+              "\"\<CSV\>\""}], "]"}], ";", "\[IndentingNewLine]", 
+            RowBox[{"TempDaily", "=", 
+             RowBox[{"{", 
+              RowBox[{"PackDaily", "[", "Temp1min", "]"}], "}"}]}], ";", 
+            "\[IndentingNewLine]", 
+            RowBox[{"Export", "[", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"Watchlist", "[", 
+                RowBox[{"[", "i", "]"}], "]"}], "<>", "\"\<daily\>\"", "<>", 
+               "name", "<>", "\"\<.txt\>\""}], ",", "TempDaily", ",", 
+              "\"\<CSV\>\""}], "]"}], ";", "\[IndentingNewLine]", 
+            RowBox[{"i", "++"}], ";"}]}], "\[IndentingNewLine]", "]"}], 
+         ";"}]}], "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"Data", "=", 
+       RowBox[{"DatePlus", "[", 
+        RowBox[{"Data", ",", "1"}], "]"}]}], ";"}]}], "\[IndentingNewLine]", 
+    "]"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"s", "=", 
+     RowBox[{
+      RowBox[{"NotebookInformation", "[", 
+       RowBox[{"EvaluationNotebook", "[", "]"}], "]"}], "[", 
+      RowBox[{"[", 
+       RowBox[{"1", ",", "2", ",", "1"}], "]"}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"s", "//", "ToFileName"}], "//", "SetDirectory"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{
+     RowBox[{
+     "After", " ", "running", " ", "this", " ", "part", " ", "there", " ", 
+      "will", " ", "be", " ", "a", " ", "folder", " ", "named", " ", "data"}],
+      ",", " ", "containing", ",", " ", 
+     RowBox[{"for", " ", "every", " ", "selected", " ", "currency"}], ",", 
+     " ", 
+     RowBox[{"the", " ", "1", " ", "min", " ", "data"}], ",", " ", 
+     RowBox[{
+     "the", " ", "5", " ", "min", " ", "data", " ", "and", " ", "the", " ", 
+      "daily", " ", "data", " ", "for", " ", "each", " ", 
+      RowBox[{"day", "."}]}]}], "*)"}]}]}]], "Input",
+ CellChangeTimes->{{3.5991194680274897`*^9, 3.599119531699791*^9}, {
+   3.600240790905642*^9, 3.600240847718062*^9}, {3.600240928376276*^9, 
+   3.600241022446677*^9}, {3.6002411344355*^9, 3.600241139302054*^9}, {
+   3.600241235768588*^9, 3.600241242329598*^9}, {3.600241439295204*^9, 
+   3.600241444910902*^9}, {3.600241613770928*^9, 3.60024162613583*^9}, {
+   3.600241657786447*^9, 3.60024166818575*^9}, 3.600241709442581*^9, {
+   3.600242978253993*^9, 3.600243107668333*^9}, {3.600243178000181*^9, 
+   3.600243279549038*^9}, {3.6002439575921087`*^9, 3.6002439600143347`*^9}, {
+   3.6002441946822443`*^9, 3.600244332594664*^9}, {3.6002443736367073`*^9, 
+   3.600244376378724*^9}, {3.600244434364064*^9, 3.60024443490767*^9}, {
+   3.600327932046825*^9, 3.600327948614923*^9}, {3.6003280215514936`*^9, 
+   3.6003280847989693`*^9}, {3.6003288431066217`*^9, 
+   3.6003289634814796`*^9}, {3.6003290756142607`*^9, 
+   3.6003290795071087`*^9}, {3.600329181553406*^9, 3.600329251434017*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"SetDirectory", "[", 
+   RowBox[{
+    RowBox[{"Directory", "[", "]"}], "<>", "\"\</data\>\""}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"DailyOneMin", "=", 
+  RowBox[{"Import", "[", 
+   RowBox[{
+    RowBox[{"\"\<090111\>\"", "<>", "\"\<.txt\>\""}], ",", "\"\<CSV\>\""}], 
+   "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"Export", "[", 
+  RowBox[{"\"\<EURUSD.txt\>\"", ",", 
+   RowBox[{"Select", "[", 
+    RowBox[{"DailyOneMin", ",", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"#", "[", 
+        RowBox[{"[", "1", "]"}], "]"}], "\[Equal]", "\"\<EURUSD\>\""}], 
+      "&"}]}], "]"}], ",", "\"\<CSV\>\""}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Import", "[", 
+   RowBox[{"\"\<EURUSD.txt\>\"", ",", "\"\<CSV\>\""}], "]"}], "[", 
+  RowBox[{"[", 
+   RowBox[{"1", ",", "5"}], "]"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"s", "=", 
+   RowBox[{
+    RowBox[{"NotebookInformation", "[", 
+     RowBox[{"EvaluationNotebook", "[", "]"}], "]"}], "[", 
+    RowBox[{"[", 
+     RowBox[{"1", ",", "2", ",", "1"}], "]"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"s", "//", "ToFileName"}], "//", "SetDirectory"}], ";"}]}], "Input",\
+
+ CellChangeTimes->{{3.600243162951646*^9, 3.60024318811421*^9}, {
+  3.600243287849427*^9, 3.600243496082263*^9}, {3.600243551878305*^9, 
+  3.600243665972389*^9}, {3.6002688681670856`*^9, 3.6002688743591967`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+   "Compute", " ", "ADRs", " ", "at", " ", "the", " ", "start", " ", "of", 
+    " ", "the", " ", "day"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", "LOOP", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{"For", " ", "every", " ", "pair", " ", "to", " ", "analyze"}], 
+   "*)"}], "\[IndentingNewLine]", "\t", 
+  RowBox[{"(*", 
+   RowBox[{
+   "Check", " ", "for", " ", "closing", " ", "conditions", " ", "on", " ", 
+    "open", " ", "positions"}], "*)"}], "\[IndentingNewLine]", "\t\t", 
+  RowBox[{"(*", 
+   RowBox[{"is", " ", 
+    RowBox[{"SL", " ", "/", " ", "TP"}], " ", 
+    RowBox[{"hit", "?"}]}], "*)"}], "\[IndentingNewLine]", "\t\t", 
+  RowBox[{"(*", 
+   RowBox[{"is", " ", "trailing", " ", "stop", " ", 
+    RowBox[{"hit", "?"}]}], "*)"}], "\[IndentingNewLine]", "\t\t", 
+  RowBox[{"(*", 
+   RowBox[{"refresh", " ", "in", " ", 
+    RowBox[{"SL", " ", "/", " ", "TP"}], " ", "for", " ", "favorable", " ", 
+    "open", " ", "trades"}], "*)"}], "\[IndentingNewLine]", "\t\t", 
+  RowBox[{"(*", 
+   RowBox[{
+   "register", " ", "complete", " ", "trades", " ", "in", " ", "log"}], 
+   "*)"}], "\[IndentingNewLine]", "\t", 
+  RowBox[{"(*", 
+   RowBox[{"Update", " ", "file", " ", "with", " ", "data"}], "*)"}], 
+  "\[IndentingNewLine]", "\t", 
+  RowBox[{"(*", 
+   RowBox[{
+   "Compute", " ", "EMA", " ", "5", " ", "and", " ", "EMA", " ", "10"}], 
+   "*)"}], "\[IndentingNewLine]", "\t\t", 
+  RowBox[{"(*", 
+   RowBox[{"Check", " ", "for", " ", "alternative", " ", "exits"}], "*)"}], 
+  "\[IndentingNewLine]", "\t\t", 
+  RowBox[{"(*", 
+   RowBox[{
+   "Compute", " ", "stochastic", " ", "oscillator", " ", "if", " ", "there", 
+    " ", "is", " ", "open", " ", "signal"}], "*)"}], "\[IndentingNewLine]", 
+  "\t\t", 
+  RowBox[{"(*", 
+   RowBox[{"Compute", " ", "RSI"}], "*)"}], "\[IndentingNewLine]", "\t\t", 
+  RowBox[{"(*", 
+   RowBox[{"check", " ", "ADR"}], "*)"}], "\[IndentingNewLine]", "\t\t", 
+  RowBox[{"(*", 
+   RowBox[{
+   "in", " ", "case", " ", "of", " ", "positive", " ", "indicators", " ", 
+    "open", " ", "position", " ", "with", " ", "SL", " ", "and", " ", "TP"}], 
+   "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{"PARAMETER", " ", "SPACE", " ", "FOR", " ", "OPTIMIZATION"}], 
+   "*)"}], "\[IndentingNewLine]", "\t", 
+  RowBox[{"(*", "leverage", "*)"}], "\[IndentingNewLine]", "\t", 
+  RowBox[{"(*", 
+   RowBox[{"length", " ", "and", " ", "weight", " ", "of", " ", "EMAs"}], 
+   "*)"}], "\[IndentingNewLine]", "\t", 
+  RowBox[{"(*", 
+   RowBox[{"parameters", " ", "of", " ", "stochastic", " ", "oscillator"}], 
+   "*)"}], "\[IndentingNewLine]", "\t", 
+  RowBox[{"(*", 
+   RowBox[{"parameters", " ", "of", " ", "RSI"}], "*)"}], 
+  "\[IndentingNewLine]", "\t", 
+  RowBox[{"(*", 
+   RowBox[{"range", " ", "of", " ", 
+    RowBox[{"SL", " ", "/", " ", "TP"}], " ", "trailing", " ", "stop"}], 
+   "*)"}], "\[IndentingNewLine]", "\t", 
+  RowBox[{"(*", 
+   RowBox[{"how", " ", "many", " ", "upticks", " ", 
+    RowBox[{"(", "down", ")"}], " ", "means", " ", "to", " ", "be", " ", 
+    "going", " ", "up", " ", 
+    RowBox[{"(", "down", ")"}]}], "*)"}], "\[IndentingNewLine]", "\t", 
+  RowBox[{"(*", "*)"}], "\[IndentingNewLine]", "gfd"}]], "Input",
+ CellChangeTimes->{{3.600328194022703*^9, 3.600328271547008*^9}, {
+   3.60032830319241*^9, 3.600328607856265*^9}, {3.600328662062146*^9, 
+   3.600328691831159*^9}, 3.6003289779692497`*^9, {3.614248729124654*^9, 
+   3.6142487691096497`*^9}, {3.6142489891446867`*^9, 3.614249007122016*^9}, {
+   3.6142490401735983`*^9, 3.614249080660857*^9}, {3.614249119869893*^9, 
+   3.614249150772085*^9}, {3.614249187978565*^9, 3.614249306097451*^9}, {
+   3.614249554740683*^9, 3.614249623864685*^9}, {3.61424968971239*^9, 
+   3.614249791734212*^9}, {3.614337275690752*^9, 3.614337424936763*^9}, {
+   3.6143375915830107`*^9, 3.614337597453466*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"Data", " ", "pack"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{
+    "for", " ", "every", " ", "currency", "\[IndentingNewLine]", "\t", "last",
+      " ", "20", " ", "days", " ", "daily", "\[IndentingNewLine]", "\t", 
+     "last", " ", "20", " ", "5"}], "-", 
+    RowBox[{
+    "min", " ", "intervals", "\[IndentingNewLine]", "\t", "series", " ", "of",
+      " ", "last", " ", "20", " ", "EMA", " ", "10", " ", "and", " ", "5"}]}],
+    "\[IndentingNewLine]", "\t", "\[IndentingNewLine]", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+   "trades", "\[IndentingNewLine]", "\t", "open", " ", "time", 
+    "\[IndentingNewLine]", "\t", "open", " ", "price", "\[IndentingNewLine]", 
+    "\t", "closing", " ", "time", "\[IndentingNewLine]", "\t", "closing", " ",
+     "price", "\[IndentingNewLine]", "\t", "reason", " ", "for", " ", 
+    "closing"}], "\[IndentingNewLine]", "*)"}]}]], "Input",
+ CellChangeTimes->{{3.614337906905905*^9, 3.614338016325427*^9}, {
+  3.614338109434861*^9, 3.6143381408265543`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+   "Refreshes", " ", "the", " ", "data", " ", "at", " ", "the", " ", 
+    "opening", " ", "of", " ", "a", " ", "new", " ", "bar"}], "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"Refresh", "[", 
+     RowBox[{"L_", ",", "Time_", ",", "WL_"}], "]"}], ":=", 
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", "Final", "}"}], ","}], "\[IndentingNewLine]", 
+     "\[IndentingNewLine]", "]"}]}], ";"}]}]], "Input",
+ CellChangeTimes->{{3.614338864354813*^9, 3.614339005568693*^9}}]
+},
+WindowSize->{740, 691},
+WindowMargins->{{4, Automatic}, {Automatic, 4}},
+FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (August 26, \
+2012)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[557, 20, 5399, 145, 313, "Input"],
+Cell[5959, 167, 297, 5, 27, "Input"],
+Cell[CellGroupData[{
+Cell[6281, 176, 1153, 26, 88, "Input"],
+Cell[7437, 204, 422, 7, 27, "Output"],
+Cell[7862, 213, 377, 5, 27, "Output"],
+Cell[8242, 220, 372, 5, 27, "Output"],
+Cell[8617, 227, 368, 5, 27, "Output"]
+}, Open  ]],
+Cell[9000, 235, 153, 3, 27, "Input"],
+Cell[9156, 240, 318, 4, 27, "Input"],
+Cell[9477, 246, 441, 11, 43, "Input"],
+Cell[CellGroupData[{
+Cell[9943, 261, 766, 21, 58, "Input"],
+Cell[10712, 284, 239, 3, 27, "Output"],
+Cell[10954, 289, 225, 3, 27, "Output"]
+}, Open  ]],
+Cell[11194, 295, 9075, 221, 673, "Input"],
+Cell[20272, 518, 1432, 39, 103, "Input"],
+Cell[21707, 559, 3874, 84, 373, "Input"],
+Cell[25584, 645, 1104, 23, 223, "Input"],
+Cell[26691, 670, 562, 15, 73, "Input"]
+}
+]
+*)
+
+(* End of internal cache information *)
